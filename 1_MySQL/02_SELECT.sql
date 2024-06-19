@@ -330,20 +330,24 @@ where job_code in ( 'J7', 'J2') and salary >= 2000000;
 select emp_name, manager_id, dept_code
 from employee
 where manager_id is null and dept_code is null;
+
 -- 3. 연봉(보너스미포함)이 4000만원 이상이고 보너스를 받지 않는 사원들의 사번, 사원명, 급여, 보너스 조회
 select emp_id, emp_name, salary, bonus
 from employee
-where salary >= 40000000 and bonus is null;
+where salary * 12>= 40000000 and bonus is null;
+
 -- 4. 입사일이 '1995-01-01' 이상이고 부서배치를 받은 사원들의 사번, 사원명, 입사일, 부서코드 조회 (정렬은 입사한 기준)
 select emp_id, emp_name, hire_date, dept_code
 from employee
 where hire_date >= '1995-01-01' and dept_code is not null
 order by hire_date;
+
 -- 5. 급여가 200만원 이상 500만원 이하이고 입사일이 '2001-01-01' 이상이고 보너스를 받지 않은 사원들의 사번, 사원명, 급여, 입사일, 보너스 조회
 select emp_id, emp_name, salary, hire_date, bonus
 from employee
 where salary between 2000000 and 5000000 and hire_date >= '2001-01-01' and bonus is null
 order by emp_id;
+
 -- 6.보너스 포함 연봉이 NULL이 아니고 이름에 '하' 가 포함되어 있는 사원들의 사번, 사원명, 급여, 보너스 포함 연봉(별칭부여) 조회
 --   보너스 포함 연봉 : (SALARY + SALARY * BONUS) * 12
 select emp_id, emp_name, salary, bonus, ((salary + salary * bonus) * 12) "보너스 포함 연봉"
