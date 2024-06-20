@@ -4,8 +4,8 @@
     - 단일행 함수 : N개의 값을 읽어서 N개의 결과값 리턴 (매 행마다 함수 실행 결과 반환)
     -그룹 함수 : N개의 값을 읽어서 1개의 결과값 리턴 (그룹별로 함수 실행 결과 반환)
 
->> SELECT 절에 단일행 함수와 그룹 함수는 함께 사용하지 못하!
-   왜? 결과 행의 개수가 다륵, 때문에!
+>> SELECT 절에 단일행 함수와 그룹 함수는 함께 사용하지 못함!
+   왜? 결과 행의 개수가 다르기 때문에!
    
 >> 함수를 사용할 수 있는 위치 : SELECT, WHERE, ORDER BY, GROUP BY, HAVING
 */
@@ -47,7 +47,7 @@ where email like '%s%';
 /*
    LPAD|RPAD(컬럼|'문자열', 최종적으로 반환할 문자의 길이, '덧붙이고자 하는 문자')
    - 문자열에 덧붙이고자 하는 문자를 왼쪽 또는 오른쪽에 덧붙여서
-   최종적으로 반환할 문자의 길이만큼 문자열 반환
+     최종적으로 반환할 문자의 길이만큼 문자열 반환
 */
 
 select lpad('hello', 10, '*'), rpad('hello', 10, '+');
@@ -73,9 +73,9 @@ select rtrim('       KH         '); -- RTRIM : 뒤쪽 공백만 제거
  - 문자열에서 특정 문자열을 추출해서 반환
 */
 
-select substr('PROGRAMMING', 5, 2);
-select substr('PROGRAMMING', 1, 6);
-select substr('PROGRAMMING', -8, 3);
+select substr('PROGRAMMING', 5, 2); -- RA
+select substr('PROGRAMMING', 1, 6); -- PROGRA
+select substr('PROGRAMMING', -8, 3); -- GRA
 
 -- 여자 사원들의 이름, 주민번호(emp_no), 조회
 select emp_name, emp_no, substr(emp_no, 8, 1)
@@ -145,8 +145,8 @@ select
 select round(123.567), round(123.567, 2), round(123.567, -1)
 
 /*
- CEIL(숫자)
- - 올림 처리해서 반환
+ CEIL : 올림 처리해서 반환
+ FLOOR : 버림 처리해서 반환
 */
 
 select ceil(123.152), floor(123.952)
@@ -154,10 +154,8 @@ select ceil(123.152), floor(123.952)
 /*
 TRUNCATE (숫자, 위치)
 - 위치 지정하여 버림 처리해서 반환
-\
 */
-
-select truncate(123.456, 1) 
+select truncate(123.456, 1);
 
 /*
    날짜 처리 함수
@@ -166,7 +164,9 @@ select truncate(123.456, 1)
    CURTIME, CURRENT_TIME :현재 시간 반환
 */
 select now(), current_timestamp(),
+curdate(), current_date(),
 curtime(), current_time();
+
 
 /*
 DAYOFYEAR : 날짜가 해당 연도에서 몇 번째 날인지 반환
@@ -211,7 +211,7 @@ subdate(now(), interval 15 day),
 addtime(now(), "01:10:00"),
 subtime(now(), "01:00:00");
 
--- 직원명, 입사일, 입하 후 6개월이 된 날짜를 조회
+-- 직원명, 입사일, 입사 후 6개월이 된 날짜를 조회
 
 select emp_name, hire_date, adddate(hire_date, interval 6 month)
 from employee;
@@ -227,14 +227,26 @@ select last_day(now());
   - 특정 날짜에 연도, 월, 일, 시간, 분, 초 정보를 각각 추출해서 반환
 */
 
-select year(now)), month(now)), day(now)),
-hour(now)), minute(now)), second(now));
+select year(now()), month(now()), day(now()),
+       hour(now()), minute(now()), second(now());
 
 -- 연도별 오래된 순으로 직원명, 입사년도, 입사월, 입사일 조회
+select
+   emp_name
+   year(hire_date) 입사년도,
+   month(hire_date) 입사월,
+   day(hire_date) 입사일
+FROM employee
+order by hire_date; 
+-- order by 입사년도, 입사월, 입사일;
 
-
-
-
+/*
+    포맷 함수
+    FORMAT(숫자, 위치) : 숫자에 3단위씩 콤마 추가해서 반환
+    DATE_FORMAT(날짜, 포맷형식) : 날짜 형식을 변경해서 반환
+*/
+select salary, format(salary, 0)
+from employee;
 
 select now(), 
 date_format(now(), '%Y.%m.%d'), -- %Y : 년도, %m : 월, %d : 일

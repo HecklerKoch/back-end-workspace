@@ -21,15 +21,18 @@
 	  4.DDL(Data Definition Language) : 데이터 정의어
       -DBMS의 구조를 정의하거나 변경, 삭제하기 위해 사용되는 언어
       (CREATE : 생성, ALTER : 수정, DROP : 삭제) - 테이블 변경과 관련
-      5.TCL (Tra
+      5.TCL (Transaction Control Language) : 트랜잭션을 제어하는 언어
+      (COMMIT : 실행, ROLLBACK : 취소)
       */
       
       /*
       SELECT 컬럼, [컬럼,...]
       FROM 테이블명
       
-      - 테이블에서 데이터를 조회할 때 사용하는 SQL
-      - SELECT를 통해서 조회된 결과를 RESULT SET 이라고 한다. (즉, 조회된 행들의 
+      - 테이블에서 데이터를 조회할 때 사용하는 SQL문
+      - SELECT를 통해서 조회된 결과를 RESULT SET 이라고 한다. (즉, 조회된 행들의 집합)
+      - 조회하고자 하는 컬럼들은 반드시 FROM 절에 기술한 테이블에 존재하는 컬럼이어야 한다.
+      - 모든 컬럼을 조회할 경우 컬럼명 대신 * 기호 사용
       */
       
       -- employee 테이블에 전체 사원의 모든 칼럼(*) 정보 조회
@@ -45,15 +48,21 @@
       
       -- 실습문제 ------------
       -- 1. job 테이블의 모든 정보 조회
-      
+      select *
+      from job;
       -- 2. job 테이블의 직급 이름(job_name) 조회
-      
+      select job_name
+      from job;
       -- 3. department 테이블의 모든 정보 조회
-      
+      select *
+      from department;
       -- 4. employee 테이블의 직원명(emp_name), 이메일(email),전화번호(phone), 입사일(hire_date) 정보만 조회
-      
+      select emp_name, email, phone, hire_date
+      from employee;
       -- 5. employee 테이블의 입사일(hire_date), 직원명(emp_name),
       -- 급여(salary) 조회
+      select hire_date, emp_name, salary
+      from employee;
       
       SELECT *
       FROM JOB;
@@ -74,7 +83,9 @@
           컬럼 산술 연산
           - SELECT 절에 컬럼명 입력 부분에 산술연산자를 사용하여 결과를 조회할수 있다.
       */
-       -- employee 테이블에서 직원명(emp_name), 직원연봉analyze
+       -- employee 테이블에서 직원명(emp_name), 직원연봉(salary * 12) 조회
+       select emp_name, salary * 12
+       from employee;
        
        /*
        컬럼 별칭
@@ -105,12 +116,12 @@
 	 - 컬럼에 중복된 값들을 한번씩만 표시하고자 할 때 사용
      -- employee 테이블에 직급코드(job_code) 조회
     */
-         SELECT job_code
+         SELECT distinct job_code
      FROM employee;
      
      -- employee 테이블에 부서코드 (dept-code) 조회
-     SELECT dept_CODE
-     from employee
+     SELECT dept_code
+     from employee;
      
      -- employee 테이블에 직급코드, 부서코드 조회
      -- 유희사항! dIStinct는 select 절에 딱한번만 기술 가능-
@@ -122,11 +133,13 @@
      SELECT 컬럼, 컬럼, ...
 	 where 조건식;
      
-     -조회하고자 하는 테이블로 부투
+     - 조회하고자 하는 테이블로부터 특정 조건에 만족하는 데이터만 조회하고자 할 때 사용
+     - 이때 WHERE 절에 조건식을 제시
+     - 조건식에는 다양한 연산자 사용 가능
      
      비교연산자 >, <, >=, <= : 대소 비교
      = : 같은지 비교
-     !=, ^=, <> : 같지 않은지 비교
+     !=, <> : 같지 않은지 비교
      */
      
      -- employee에서 부서코드가 'D9'인 사원들만 조회 (이때, 모든 컬럼 조회)
