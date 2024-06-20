@@ -396,9 +396,11 @@ select count(distinct dept_code)
 from employee;
 
 -- 퇴사한 직원의 수 조회 (ent_date 또는 ent_yn)
-select count(ent_date) as "퇴사자"
+select count(ent_date) as "퇴사한 직원"
 from employee;
 
-select count(*) as "former worker"
+select count(*) as "former collague"
 from employee
 where ent_yn = 'Y';
+
+
