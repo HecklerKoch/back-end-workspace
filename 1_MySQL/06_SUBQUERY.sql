@@ -41,7 +41,7 @@ from employee);
 -- 단, 전지연 사원은 제외
 
 -- 1) 전지연 사원이 속해있는 부서코드 조회
-select *
+select dept_code
 from employee
 where emp_name = '전지연';
 
@@ -50,19 +50,75 @@ select emp_id, emp_name, phone, job_name, dept_title, hire_date
 from employee
 join job using (job_code)
 join department on (dept_code = dept_id)
-where dept_code = ( select dept_code
+where dept_code = 'D1';
+
+-- 3)
+select emp_id, emp_name, phone, job_name, dept_title, hire_date
 from employee
-where emp_name = '전지연')
-and emp_name != '전지연';
+join job using (job_code)
+join department on (dept_code = dept_id)
+where dept_code = (select dept_code
+				from employee
+				where emp_name = '전지연');
 
 -- 부서별 급여의 합이 가장 큰 부서 코드, 급여의 합 조회
--- ) 각 부서별 최괴 급여
-select max(salary)
+select dept_code, sum(salary)
 from employee
 group by dept_code
+order by 2 desc
+limit 1;
 
+-- >> 서브쿼리 사용!
+-- 부서의 합이 가장 큰 값
+select max(sum_sal) from (select dept_code, sum(salary) sum_sal
+from employee group by dept_code) dept_sum; -- 17700000
 
+-- 서브쿼리 특징, 쿼리 자체는 직관적
+-- 쿼리 속도 중요시, 서브쿼리 상대적으로 느리다.
+-- 가급적으로 서브쿼리를 사용하지 않아도 되는 거면 안 쓰는 것을 추천.
 
+select dept_code, sum(salary)
+from employee
+group by dept_code
+having sum(salary) = (select max(sum_sal) 
+from (select dept_code, sum(salary) sum_sal
+from employee group by dept_code) dept_sum);
+
+/*
+	2. 다중행 서브쿼리
+    -서브쿼리의 조회 결과 값의 개수가 여러 행 일 때 (여러행 한열)
+    
+    IN 서브쿼리 : 여러개의 결과값 중에서 한개라도 일치하는 값이 있다면
+    
+*/
+-- 각 부서별 최고 급여를 받는 직원의 이름, 직급 코드, 부서 코드, 급여 조회
+select max(salary)
+from employee
+group by dept_code;
+
+-- 2) 위의 값들을 받는 직원의 이름, 직급코드, 부서코드, 급여 조회
+select emp_name, job_code, dept_code, salary
+from employee
+where salary in ( 2890000, 3660000,2490000, 3760000, 3900000, 2550000, 8000000);
+
+-- 3) 합치기
+select emp_name, job_code, dept_code, salary
+from employee
+where salary in (select max(salary)
+from employee
+group by dept_code);
+
+-- 직원에 대한 사번, 이름, 부서코드, 구분(사수/사원) 조회
+-- 누군가 사수인 사람들의 ID 가 필요
+select distinct manager_id
+from employee
+where manager_id is not null; -- >> select 문 내에 조건으로 사용
+
+select emp_id, emp_name, dept_code,
+if (emp_id in (select distinct manager_id
+from employee
+where manager_id is not null), "사수", "사원") 구분
+from employee;
 
 
 /*

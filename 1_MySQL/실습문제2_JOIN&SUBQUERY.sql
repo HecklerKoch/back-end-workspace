@@ -28,6 +28,7 @@ select first_name, last_name, title from actor
 join film_actor using (actor_id)
 join film using (film_id)
 where (first_name, last_name) = ('JULIA','MCQUEEN')
+order by title
 limit 10;
 
 -- 3. 영화 NOON PAPI에 나오는 배우들의 이름 조회
@@ -55,4 +56,6 @@ from customer
 join rental using (customer_id)
 join inventory using (inventory_id)
 join film using (film_id)
-where email like 'JOYCE%' and film_id ='193';
+where email like 'JOYCE%'
+order by rental_date desc
+limit 1;
