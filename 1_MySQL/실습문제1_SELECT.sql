@@ -26,13 +26,9 @@ from film_list
 where price between 2 and 4 
 and category in('Documentary', 'Animation') 
 and actors like '%BOB%';
-
 -- 5. address 테이블에서 district가 비어있지 않고 앞에 숫자 제외 주소만 10개 조회
-select substr(address, instr(address, ' ') + 1) address, district ''
-from address
-where district != ''
-order by 2, 1 desc
-limit 10; 
+select *
+from address;
 
 select address, district as ' '
 from address
@@ -56,11 +52,5 @@ order by 글자수 desc
 limit 10;
 
 -- 8. film 테이블에서 description에서 of 이전 문장만 중복 없이 10개만 추출해서 조회
-select distinct substr(description, 1 , instr(description, 'of')-2) "of 이전 문장"
-from film
-order by 1 desc
-limit 10;
 
 -- 9. film 테이블에서 replacement_cost 최소 비용과 최대 비용 조회
-select min(replacement_cost)"최소 비용", max(replacement_cost)"최대 비용"
-from film;
