@@ -37,6 +37,18 @@ join film_actor using (film_id)
 join actor using (actor_id)
 where title = 'NOON PAPI';
 
+-- >> 서브쿼리로도 가능하지만 추천 X
+-- >> 사실상 조회해야 되는게 actor 테이블만 필요
+select first_name, last_name
+from actor
+where actor_id in 
+(select actor_id
+from film_actor
+where film_id = 
+(select film_id 
+from film 
+where title = 'NOON PAPI'));
+
 -- 4. 각 카테고리별 이메일이 JOYCE.EDWARDS@sakilacustomer.org인 고객이 빌린 DVD 대여 수 조회
 select name 'category' ,rental_duration as "count"
 from customer
@@ -46,6 +58,27 @@ join film using (film_id)
 join film_category using (film_id)
 join category using (category_id)
 where email = 'JOYCE.EDWARDS@sakilacustomer.org';
+
+select name category, count(*) count
+from rental
+join customer using(customer_id)
+join inventory using (inventory_id)
+join film_category using (film_id)
+join category using (category_id)
+where email = 'JOYCE.EDWARDS@sakilacustomer.org'
+group by name;
+
+-- 서브쿼리로 변경
+select name category, count(*) count
+from rental
+join customer using(customer_id)
+join inventory using (inventory_id)
+join film_category using (film_id)
+join category using (category_id)
+where customer_id = (select customer_id
+from customer
+where email = 'JOYCE.EDWARDS@sakilacustomer.org')
+group by name;
 
 -- 5. 이메일이 JOYCE.EDWARDS@sakilacustomer.org인 고객이 가장 최근에 빌린 영화 제목과 영화 내용을 조회 
 select * from customer
@@ -59,3 +92,22 @@ join film using (film_id)
 where email like 'JOYCE%'
 order by rental_date desc
 limit 1;
+
+select title, description 
+from rental
+join inventory using(inventory_id)
+join film using (film_id)
+join customer using (customer_id)
+where email = 'JOYCE.EDWARDS@sakilacustomer.org'
+order by rental_date desc
+limit 1;
+
+-- 서브쿼리
+select title, description 
+from rental
+join inventory using(inventory_id)
+join film using (film_id)
+where rental_date = (select max(rental_date)
+from rental
+	join customer using (customer_id)
+where email = 'JOYCE.EDWARDS@sakilacustomer.org');

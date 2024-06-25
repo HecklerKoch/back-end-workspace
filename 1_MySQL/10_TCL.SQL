@@ -51,6 +51,17 @@ WHERE emp_name = '노옹철';
 -- DELETE FROM 테이블명 WHERE 조건
 DELETE FROM emp_salary WHERE emp_id in (213, 218);
 
+-- emp_id가 200인 사원 삭제
+delete from emp_salary
+where emp_id = 200;
+
+select * from emp_salary;
+
+-- DDL 구문을 실행하는 순간 임시 저장된 변경사항들을 무조건 반영
+create table test(
+	tid int
+);
+
 SELECT * FROM dept_copy;
 SELECT * FROM emp_salary;
 
