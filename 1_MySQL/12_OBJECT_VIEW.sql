@@ -172,15 +172,21 @@ select * from employee;
 -- 3. 산술표현식 또는 함수식으로 정의된 경우
 -- 사번, 사원명, 급여, 연봉(salary * 12)을 조회한 SELECT 문으로 vw_emp_sal 뷰 정의
 create or replace view vw_emp_sal
-as select emp_id 사번, emp_name 사원명, salary 급여, (salary * 12) 연봉
+as select emp_id 사번, emp_name 사원명, emp_no 주민번호,salary 급여 , (salary * 12) 연봉
 from employee;
 
 -- 산술연산식으로 정의된 컬럼은 데이터 추가 불가능
 insert into vw_emp_sal
 values(300, '홍길동', 3000000, 36000000);
 
-insert into vw_emp_sal (사번, 사원명, 급여)
-values(300, '홍길동', 3000000); -- 확인 필요
+-- 산술연산식이 컬럼에 같이 들어간 경우도 데이터 추가 불가능
+insert into vw_emp_sal (사번, 사원명, 주민번호, 급여)
+values(300, '홍길동', '000000-0000000', 3000000); -- 가능 / 산술연산식을 컬럼에서 지울시
+
+delete from vw_emp_sal
+where 사번 = 300;
+
+select * from vw_emp_sal;
 
 -- 산술연산으로 정의된 컬럼은 데이터 변경 불가능
 update vw_emp_sal
@@ -201,10 +207,105 @@ select * from employee;
 -- 4. 그룹함수나 GROUP BY 절을 포함한 경우
 -- 부서별 급여의 합계, 평균을 조회한 select 문을 vw_groupdept 뷰 정의
 create or replace view vw_groupdept
-as select format(sum(salary),0) 급여합계, format(avg(salary),0) 평균급여 from employee;
+as select dept_code 부서코드, format(sum(salary),0) 급여합계, format(avg(salary),0) 평균급여 
+from employee
+group by dept_code;
+
+-- insert (에러)
+insert into vw_groupdept
+values ('D11', 80, 40);
+
+-- update (에러)
+update vw_groupdept
+set 합계 = 800
+where 부서코드 = 'D1';
+
+-- delete (에러)
+delete from vw_groupdept
+where 합계 = '5210000';
+
 
 select * from vw_groupdept;
 
+-- 5. DISTINCT 구문이 포함된 경우
+-- employee 테이블로 job_code만 중복없이 조회한 select 문을 vw_dt_job 뷰 정의
+create or replace view vw_dt_job
+as select distinct job_code from employee;
+
+-- insert (에러)
+insert into vw_dt_job
+values ('J8');
+
+-- update (에러)
+update vw_dt_job
+set job_code = 'J0'
+where job_code = 'J7';
+
+-- delete (에러)
+delete from vw_dt_job
+where job_code = 'J1';
+
+
+select * from vw_dt_job;
+
+-- 6. JOIN을 이용해서 여러 테이블을 연결한 경우
+-- 사원들의 사번, 사원명, 주민번호, 부서명 조회한 select 문을 vw_joinemp 뷰 정의
+create or replace view vw_joinemp
+as select emp_id, emp_name, emp_no, dept_title from employee
+join department on (dept_code = dept_id);
+
+-- insert
+insert into vw_joinemp
+values (300, '홍길동', '800130-1111111', '개발팀');
+
+insert into vw_joinemp (emp_id, emp_name, emp_no)
+values (300, '홍길동', '800130-1111111'); -- 가능
+
+-- update
+update vw_joinemp
+set emp_name = '박성철'
+where emp_id = '214';
+
+update vw_joinemp
+set dept_title = '회계부'
+where emp_id = 214;
+
+-- delete (에러)
+delete from vw_joinemp
+where emp_id = 214;
+
+
+select * from vw_joinemp;
+
+-- 7. VIEW 옵션
+-- WITH CHECK OPTION : 서브쿼리에 기술된 조건에 부합하지 않는 값으로 수정시 에러 발생
+-- 급여가 3000000원 이상인 사원들만 조회한 select문을 vw_emp 뷰 정의
+create or replace view vw_emp
+as select * from employee
+where salary >= 3000000;
+
+-- 200번 사원의 급여를 200만원으로 변경 (vw_emp 이용해서)
+update vw_emp
+set salary = 2000000
+where emp_id = 200;
+
+-- with check option 사용
+create or replace view vw_emp
+as select * from employee
+where salary >= 3000000
+with check option;
+
+-- 202번 사원의 급여를 200만원으로 변경
+update vw_emp
+set salary = 2000000
+where emp_id = 202;-- 에러 발생
+
+-- 202번 사원의 급여를 400만원으로 변경
+update vw_emp
+set salary = 4000000
+where emp_id = 202;
+
+select * from vw_emp;
 
 
 
