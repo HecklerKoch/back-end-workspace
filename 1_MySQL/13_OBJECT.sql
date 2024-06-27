@@ -188,8 +188,8 @@ create trigger trg_1
 after insert on employee
 for each row
 begin 
-	insert into (event_tpe, event_desc)
-    values( 'insert', '신입사원이 입사했습니다')
+	insert into log(event_tpe, event_desc)
+    values( 'insert', '신입사원이 입사했습니다');
 end //
 delimiter ;
 
@@ -295,10 +295,44 @@ where pcode = 3;
 delimiter //
 
 create trigger trg_03
-if 
-
-
+after insert on prodetail
+for each row
+begin
+if new.status = '입고'
+then update product
+set stock = stock + new.amount
+where pcode = new.pcode;
+else update product
+set stock = stock - new.amount
+where pcode = new.pcode;
+ end if;
+end//
 delimiter ;
+
+-- 2번 상품이 오늘날짜로 20개 입고
+insert into prodetail(pcode, amount, status) values (2, 20, '입고');
+-- 3번 상품이 오늘날짜로 7개 출고
+insert into prodetail (pcode, amount, status) values (3, 7, '출고');
+-- 1번 상품이 오늘날짜로 100개 입고
+insert into prodetail (pcode, amount, status) values (1, 100, '입고');
 
 select * from product;
 select * from prodetail;
+
+
+
+/*
+	데이터베이스 모델링 (DB 모델링)
+    - 데이터 베이스를 설계하는 프로세스
+    - 테이블 간의 관계 정의 및 구조 결정
+    
+    작업순서
+    1. 개념적 모델링
+		- 엔티티(Entity) 추출
+        - 엔티티 간의 관계 설정
+    2. 논리적 모델링 : ERD(Entity Relationship Diagram) 툴 - exercd
+		- 정규화 작업 (1 ~ 5), 3까지만 정규화!
+        너무 조깨면 
+    3. 물리적 모델링
+		- 테이블 실질적으로 구성
+*/
