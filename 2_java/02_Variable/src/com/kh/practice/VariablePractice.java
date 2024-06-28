@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class VariablePractice {
 	
+	Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		
 		VariablePractice practice = new VariablePractice();
@@ -27,8 +29,10 @@ public class VariablePractice {
 	public void method1() {
 		int adult = 10000;
 		int youth = 7000;
+		int adultCount = 2;
+		int youthCount = 3;
 		System.out.println("------Q1------");
-		System.out.println(adult * 2 + youth * 3 + "원");
+		System.out.println(adult * adultCount + youth * youthCount + "원");
 		System.out.println();
 	}
 	
@@ -72,7 +76,7 @@ public class VariablePractice {
 	public void method3() {
 		System.out.println("------Q3------");
 		Scanner sc = new Scanner(System.in); 
-		System.out.print("첫번째 정수 >");
+/*		System.out.print("첫번째 정수 >");
 		int integer1 = Integer.parseInt(sc.nextLine());
 		
 		System.out.print("두번째 정수 >");
@@ -84,7 +88,18 @@ public class VariablePractice {
 				(integer1 + integer2), (integer1 - integer2),
 				(integer1 * integer2), (integer1 / integer2));
 		System.out.println();
-		System.out.println();
+		System.out.println(); */
+		
+	System.out.print("첫 번째 정수 : ");
+	int num1 = sc.nextInt();
+	System.out.print("두 번째 정수 : ");
+	int num2 = sc.nextInt();
+	
+	System.out.println("더하기 : " + (num1 + num2));
+	System.out.println("빼기 : " + (num1 - num2));
+	System.out.println("곱하기 : " + (num1 * num2));
+	System.out.println("나누기 몫 : " + (num1 / num2));
+	System.out.println();
 	} 
 
 	/*
@@ -112,6 +127,8 @@ public class VariablePractice {
 		System.out.printf("면적:%.2f 둘레:%.1f", (x * y), (x+y)*2);
 		System.out.println();
 		System.out.println();
+		
+		
 	}
 
 	/*
@@ -123,13 +140,21 @@ public class VariablePractice {
 	 * 마지막 문자 : e
 	 * */
 	public void method5() {
-	/*	System.out.println("------Q5-------");
+		System.out.println("------Q5-------");
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("문자열 입력: ");
+		/*	System.out.print("문자열 입력: ");
 		String word1 = sc.nextLine();
 		
 		System.out.printf("첫번째 문자:%c"); */
+		
+		System.out.println("문자열을 입력하세요 : ");
+		String word = sc.nextLine();
+		
+		System.out.println("첫번째 문자 : " + word.charAt(0));
+		System.out.println("두번째 문자 : " + word.charAt(1));
+		System.out.println("마지막 문자 : " + word.charAt(word.length()-1));
+		System.out.println();
 	}
 
 	/*
@@ -140,6 +165,14 @@ public class VariablePractice {
 	 * B unicode : 66
 	 * */
 	public void method6() {
+		System.out.print("문자 : ");
+		char ch = sc.nextLine().charAt(0);
+		
+		int num = ch;
+		
+		char ch2 = (char) (num + 1);
+		System.out.println(ch + " unicode : " + num);
+		System.out.println(ch2 + " unicode : " + (int)ch2);
 
 		
 		
@@ -159,15 +192,16 @@ public class VariablePractice {
 	 * 평균 : 72.67
 	 * */
 	public void method7() {
-		double korean = 75;
-		double english = 63;
-		double math = 80;
-		System.out.println("------Q7------");
-		System.out.printf("%.0f", (korean + english + math));
-		System.out.println();
-		System.out.printf("%.2f", (korean + english + math) / 3);
+		System.out.print("국어 : ");
+		int korean = sc.nextInt();
+		System.out.print("영어 : ");
+		int english = sc.nextInt();
+		System.out.print("수학 : ");
+		int math = sc.nextInt();
 		
-		
+		int total = korean + english + math;
+		System.out.println("총점 : " + total);
+		System.out.printf("평균 : %.2f", ((double)total / 3));
 
 	}
 
