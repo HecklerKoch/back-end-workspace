@@ -12,7 +12,7 @@ public class OperatorPractice {
 //		op.method2();
 //		op.method3();
 //		op.method4();
-		op.method5();
+//		op.method5();
 //		op.method6();
 //		op.method7();
 	}
@@ -26,8 +26,8 @@ public class OperatorPractice {
 		System.out.print("연필 개수 :");
 		int pencil = Integer.parseInt(sc.nextLine());
 		
-		System.out.printf("나눠가진 연필 개수 %d, 남은 연필 개수%d", pencil / people, pencil % people );
-
+		System.out.printf("나눠가진 연필 개수 %d, 남은 연필 개수 %d",
+				pencil / people, pencil % people );
 	}
 	
 	//입력 받은 숫자를 산술 연산자만 사용해서 십의 자리 이하는 버리는 코드를 작성하세요.
@@ -36,7 +36,8 @@ public class OperatorPractice {
 		System.out.print("숫자 입력 :");
 		int num = Integer.parseInt(sc.nextLine());
 		
-	    System.out.println(num - num %100);
+	    System.out.println(num - num % 100);
+	    System.out.println(num / 100 * 100);
 		
 		
 	}
@@ -73,13 +74,14 @@ public class OperatorPractice {
 
 	//주민번호(-포함)를 입력받아 남자인지 여자인지 구분하여 출력하세요
 	public void method5() {
-		System.out.print("주민번호 입력 : ");
-		char gender = sc.nextLine().charAt(7);
+	System.out.print("주민번호 입력 : ");
+			char gender = sc.nextLine().charAt(7);
 		
 	  String result = gender == '1' || gender == '3' ? "남자"
 			  :(gender == '2' || gender == '4' ? "여자" : "잘못된 번호입니다.");
 	  
 	  System.out.println(result);
+		
 
 	}
 
@@ -103,10 +105,7 @@ public class OperatorPractice {
 		System.out.print("바구니 크기 : ");
 		int size = Integer.parseInt(sc.nextLine());
 		
-		int basket = apple / size;
-		
-		System.out.printf("필요한 바구니의 수 : %d", basket);
-		
+		System.out.println(apple / size + (apple % size == 0 ? 0 : 1));
 	}
 	
 }
