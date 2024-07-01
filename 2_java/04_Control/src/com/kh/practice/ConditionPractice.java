@@ -254,7 +254,24 @@ public class ConditionPractice {
         조회 메뉴입니다.
      */
     public void method10() {
-
+    	System.out.print(
+    			"1. 입력"
+    			"2. 수정"
+    			"3. 조회"
+    			"4. 삭제"
+    			"9. 종료"
+    			"메뉴 번호를 입력하세요 : "); 	
+    	int num = sc.nextInt();
+    	
+    	switch (num) {
+    	
+    	case 1:System.out.println("입력 메뉴입니다");
+    	case 2:System.out.println("수정 메뉴입니다");
+    	case 3:System.out.println("조회 메뉴입니다");
+    	case 4:System.out.println("삭제 메뉴입니다");
+    	case 9:System.out.println("프로그램이 종료됩니다");
+    	}
+    	
     }
 
     /*

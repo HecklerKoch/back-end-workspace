@@ -55,6 +55,13 @@ public class C_For {
 	
 	//1부터 사용자가 입력한 수까지의 합계
 	public void method5(){
+		System.out.print("수 입력 : ");
+		int number = sc.nextInt();
+		
+		int sum = 0;
+		for(int i = 1; i <= 10; i++)
+		{sum += i;}
+		System.err.println(sum);
 		
 	}
 	
@@ -68,7 +75,14 @@ public class C_For {
 	double random = Math.random(); //0.0 <= random < 1.0
 	random = Math.random() * 10; // 0.0 <= random < 10.0
 	random = Math.random() * 10 +1; // 1.0 <= random < 11.0
-	System.out.println((int)random); // 1~10까지의 랜덤값
+	
+	int num = (int)random;// 1~10까지의 랜덤값
+	int sum = 0;
+	for(int i = 1; i <= number; i++) {
+		sum += i; 
+		}
+	    System.out.println(sum);
+	
 	}
 	
 	/*
