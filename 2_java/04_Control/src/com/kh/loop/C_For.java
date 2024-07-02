@@ -78,7 +78,7 @@ public class C_For {
 	
 	int num = (int)random;// 1~10까지의 랜덤값
 	int sum = 0;
-	for(int i = 1; i <= number; i++) {
+	for(int i = 1; i <= 0; i++) {
 		sum += i; 
 		}
 	    System.out.println(sum);
