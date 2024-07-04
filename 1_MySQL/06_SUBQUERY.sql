@@ -13,7 +13,7 @@
 -- 노옹철 사원과 같은 부서원들을 조회
 -- 1) 노옹철 사원의 부서코드 조회
 select dept_code from employee
-where emp_name = '노옹철'; -- D9
+where emp_name = '노옹철'; -- D9	
 
 -- 2) 부서코드가 'D9'인 사원들 조회
 select * from employee

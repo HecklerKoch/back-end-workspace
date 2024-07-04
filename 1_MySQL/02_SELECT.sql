@@ -238,7 +238,9 @@
      -- 만약 ESCAPE가 기억 안난다면 \도 가능
      select emp_id, emp_name,email
      from employee
-     where email like '___$_%' escape '$';
+     where (dept_code = 'D6' or dept_code = 'D9') 
+     and email like '___!_%' escape '!'
+     and salary > 3000000;
 	
      -- 위의 사원들 이외의 사원들 조회
      -- 논리부정연산자 : NOT

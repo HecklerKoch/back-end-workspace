@@ -34,18 +34,18 @@
 */
 -- 1) 연결할 두 컬럼명이 다른 경우
 -- 사본, 사원명, 부서코드, 부서명(dept_titel) 조회
-select* from employee
+select* from employee;
 
 
 
 
 
 
--- >> ANSI 구문
+-- ANSI 구문
 
-SELECT emp_id, emp_name, e.job_code, job_name
-from employee e
-join job j on (e.job_code = j.job_code);
+SELECT emp_id, emp_name, dept_code, dept_title
+from employee
+join department on (dept_code= dept_id);
 
 -- 두 컬럼명이 같을 때만 USING 구문 사용 가능
 select emp_id, emp_name, job_code, job_name
