@@ -87,28 +87,28 @@ public class A_Variable {
 
 		// 변수의 네이밍 규칙
 		// 1. 대소문자 구분한다.
-		int number;
-		int Number;
+//		int number;
+//		int Number;
 //		   String number; 자료형이 달라도 변수명이 같으면 에러 발생
 
 		// 2. 숫자로 시작하면 안 된다.
 //		  int 1age;
-		int age2;
+//		int age2;
 
 		// 3. 특수 문자는 _, $만 사용 가능하다.
-		int a;
+//		int a;
 
 		// 4. 예약어(Reserved word)를 사용하면 안 된다.
 //		  int public;
 //		  int void;
 //		  int int;
-		int class2;
+//		int class2;
 
 		// 5. (권장사항) 낙타표기법(카멜케이스)
 		// 첫글자는 항상 소문자, 여러 단어가 오면 대문자로 구분
-		int maxnumber;
-		int max_number; // 자바에서 X, 파이썬에서 O (스네이크 기법)
-		int maxNumber; // 자바에서
+//		int maxnumber;
+//		int max_number; // 자바에서 X, 파이썬에서 O (스네이크 기법)
+//		int maxNumber; // 자바에서
 
 	}
 
