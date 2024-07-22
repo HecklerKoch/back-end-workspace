@@ -171,7 +171,7 @@ CREATE TABLE mem_check(
     -- >> 기본키에 중복값을 담으려고 해서 문제 발생! (unique 제약조건 위배)
     
     INSERT INTO mem_pri VALUES (null,'user02','pass01','배영운','남',null, null, null);
-    -- >> 기본키에 mull을 담으려고 해서 문제 발생! (not null 제약조건 위배)
+    -- >> 기본키에 null을 담으려고 해서 문제 발생! (not null 제약조건 위배)
     
 	INSERT INTO mem_pri VALUES (2,'user02','pass01','배영운','남',null, null, null);
     
@@ -377,26 +377,26 @@ CREATE TABLE member(
     AS 서브쿼리;
 */
 -- KH 스키마에 있는 employee 테이블 복사하여 새로운 테이블 생성
-	CREATE TABLE employee_copy	
+	CREATE TABLE employees	
     SELECT * FROM KH.employee;
     
-    SELECT * FROM  employee_copy;
+    SELECT * FROM  employees;
 
-	DESC employee_copy;
+	DESC employees;
     
-    DROP TABLE employee_copy;
+    DROP TABLE employees;
     
 -- 테이블만 생성하고 데이터 값은 복사하지 않는 방법
-	CREATE TABLE employee_copy	
+	CREATE TABLE employees	
     SELECT * FROM KH.employee WHERE 1 = 0;
 -- 모든 행에 대해서 매번 false이기 때문에 테이블 구조만 복사!
 
 -- employee 테이블에서 사번, 직원명, 급여, 연봉만 저장한 employee_copy 테이블로 생성
-	CREATE TABLE employee_copy
+	CREATE TABLE employees
     SELECT emp_id, emp_name, salary, salary * 12 
     FROM KH.employee ;
 	
-     SELECT * FROM  employee_copy;
+     SELECT * FROM  employees;
      
      
      

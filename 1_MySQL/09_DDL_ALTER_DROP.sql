@@ -95,7 +95,7 @@ SELECT * FROM kh.department;
 
 -- dept_copy 테이블의 dept_id 컬럼에 기본키(PK, Primary Key) 제약조건 추가
 ALTER TABLE dept_copy ADD primary key(dept_id);
-ALTER TABLE dept_copY ADD CONSTRAINT dept_copy_pk primary key(dept_id);
+ALTER TABLE dept_copy ADD CONSTRAINT dept_copy_pk primary key(dept_id);
 -- dept_title 컬럼에 unique 제약조건 추가
 ALTER TABLE dept_copy ADD UNIQUE(dept_title);
 ALTER TABLE dept_copy ADD CONSTRAINT dept_copy_UNIQUE unique(dept_title);
