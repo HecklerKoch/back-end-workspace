@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import com.kh.model.dao.ClientDAO;
 
 import Client.vo.Client;
 
@@ -18,15 +21,25 @@ public class LoginServlet extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
 		
-		Client client = (Client) session.getAttribute("pi");
-		
-		request.setAttribute("access", "data");
-		
-		request.getRequestDispatcher("register").forward(request, response);
-		
-		
+		ClientDAO dao = new ClientDAO();
+		try {
+			Client client = dao.login(id, password);
+			
+			//바인딩 - session
+			HttpSession session = request.getSession();
+			session.setAttribute("pi", client);
+			
+			response.sendRedirect("/index.jsp");
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

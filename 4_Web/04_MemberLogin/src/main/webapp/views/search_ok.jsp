@@ -8,16 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<% Client client = (Client) request.getAttribute("search"); 
-	if(client!=null) {
-	%>
+	<% Client client = (Client) request.getAttribute("search");%>
 	<h1>조회 결과</h1>
 	<ul>
 	<li>아이디 : <%=client.getId() %></li>
 	<li>비밀번호 : <%=client.getPassword() %></li>
 	<li>이름 : <%=client.getName() %></li>	
 	</ul>
-	<% } else { request.getRequestDispatcher("/views/search_fail.jsp").forward(request, response);
-	} %>
+	<a href="/">메인 화면으로 돌아가기</a>
 </body>
 </html>

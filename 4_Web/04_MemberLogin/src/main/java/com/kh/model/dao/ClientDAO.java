@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import Client.vo.Client;
 
@@ -51,6 +52,30 @@ public class ClientDAO {
 		close(ps, conn);
 	}
 	
+	//로그인
+	public Client login(String id, String password) throws SQLException {
+		Connection conn = connect();
+		
+		String query = "SELECT * FROM client WHERE id = ? AND password = ?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		
+		ps.setString(1, id);
+		ps.setString(2, password);
+		
+		ResultSet rs = ps.executeQuery();
+		Client client = null;
+		
+		if(rs.next()) {
+			client = new Client(id, password, rs.getString("name"));
+		}
+		
+		close(rs, ps, conn);
+		
+		return client;	
+		
+	}
+	
+	// 회원검색
 	public Client searchClient(String id) throws SQLException {
 		Connection conn = connect();
 		
@@ -67,6 +92,7 @@ public class ClientDAO {
 		return client;
 	}
 	
+	//전체 회원검색
 	public ArrayList<Client> showAllClient() throws SQLException {
 		Connection conn = connect();
 		
@@ -75,16 +101,17 @@ public class ClientDAO {
 		
 		ResultSet rs = ps.executeQuery();
 		
-		close(rs, ps, conn);
-		ArrayList<Client> list = new ArrayList<>();
+		List<Client> Clientlist = new ArrayList<>();
 		
 		while(rs.next()) {
-			list.add(new Client(rs.getString("id"),
-					rs.getString("password"),
-					rs.getString("name")));
+			Clientlist.add(new Client(rs.getString("id"),
+								rs.getString("password"),
+								rs.getString("name")));
 		}
 		
-		return list;
+		close(rs, ps, conn);
+		
+		return (ArrayList<Client>) Clientlist;
 		
 	}
 	

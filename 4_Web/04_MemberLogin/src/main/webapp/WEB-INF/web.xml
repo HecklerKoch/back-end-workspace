@@ -39,4 +39,24 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchAll</display-name>
+    <servlet-name>SearchAll</servlet-name>
+    <servlet-class>session.SearchAll</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchAll</servlet-name>
+    <url-pattern>/SearchAll</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>session.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
