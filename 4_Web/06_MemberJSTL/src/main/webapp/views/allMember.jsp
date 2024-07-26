@@ -18,14 +18,7 @@
 	<th>비밀번호</th>
 	<th>이름</th>
 	</tr>
-	<% for(Client c : list) { %>
-		  <tr>
-		  <td><%=c.getId() %></td>
-		  <td><%=c.getPassword() %></td>
-		  <td><%=c.getName() %></td>
-		  </tr>
-		  <% } %>
-		  
+c:
 	</table>
 </body>
 </html>

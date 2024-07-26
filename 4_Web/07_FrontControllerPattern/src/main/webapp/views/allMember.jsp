@@ -25,7 +25,6 @@
 		  <td><%=c.getName() %></td>
 		  </tr>
 		  <% } %>
-		  
 	</table>
 </body>
 </html>
