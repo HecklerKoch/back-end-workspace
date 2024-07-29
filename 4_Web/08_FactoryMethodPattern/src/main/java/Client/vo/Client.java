@@ -1,0 +1,14 @@
+package Client.vo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor @NoArgsConstructor @Data
+public class Client {
+	
+	private String id;
+	private String password;
+	private String name;
+
+}
