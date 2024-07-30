@@ -59,8 +59,13 @@ public class ClientDAO {
 	public Client login(String id, String password) throws SQLException {
 		Connection conn = connect();
 		
+		System.out.println(id);
+		System.out.println(password);
+		
 		String query = "SELECT * FROM client WHERE id = ? AND password = ?";
 		PreparedStatement ps = conn.prepareStatement(query);
+		
+
 		
 		ps.setString(1, id);
 		ps.setString(2, password);
