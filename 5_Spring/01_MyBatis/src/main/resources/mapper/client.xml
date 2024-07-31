@@ -4,4 +4,28 @@
 		INSERT INTO client
 		VALUES (#{id}, #{password}, #{name})
 	</insert>
+	
+	<select id="allClient" resultType="Client">
+		SELECT * FROM client
+	</select>
+	
+	<select id="login" parameterType="Client" resultType="Client">
+	 SELECT * FROM client
+	 WHERE id = #{id} AND password = #{password};
+	 </select>
+	 
+	 <!-- 
+	 	* if
+	 	- 동적 쿼리를 구현할 때 기본적으로 사용되는 구문
+	 	- 특정 조건을 만족할 경우 안의 구문을 쿼리에 포함
+	 	
+	 	
+	 	* set : <trim prefix="SET" suffixOverrides=",">
+	 	- 기존의 UPDATE SET 절을 동적으로 구현할 때 사용
+	 	- SET 키워드를 붙이고 불필요한 콤마(,)를 제거
+	 	
+	 	* Where : <trim prefix="WHERE" prefixOverridex="AND|OR">
+	 	- 기존 쿼리의 WHERE 절을 동적으로 구현할 때 사용
+	 	- 만약 태그 안의 내용이 'AND'나 'OR'로 시작할 경우 'AND'나 'OR' 제거
+	  -->
 </mapper>
