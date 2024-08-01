@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
-public class Client {
-	
+@Data @NoArgsConstructor @AllArgsConstructor
+public class Member {
+
 	private String id;
 	private String password;
 	private String name;
+	
 }
