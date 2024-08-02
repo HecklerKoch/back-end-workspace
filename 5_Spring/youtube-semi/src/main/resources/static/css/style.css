@@ -1,23 +1,10 @@
-.progress-bar-container {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  width: 100vw;
-  height: 2px;
-}
-.progress-bar {
-  width: 0%;
-  height: 100%;
-  background: #ff0000;
-}
 header {
   position: fixed;
+  background-color: white;
   width: 100%;
   display: flex;
   justify-content: space-between;
   height: 60px;
-  background-color: white;
 }
 .header-start {
   display: flex;
@@ -26,7 +13,7 @@ header {
   font-size: 20px;
   margin: 20px;
 }
-.header-start svg {
+.header-start a {
   padding: 20px 10px;
 }
 .header-center {
@@ -82,7 +69,7 @@ main nav {
   display: flex;
   padding-left: 15px;
   align-items: center;
-  background-color: white;
+  background: white;
 }
 main nav a {
   background-color: #eee;
@@ -90,15 +77,15 @@ main nav a {
   border-radius: 5px;
   margin: 5px;
 }
-main nav .active {
-  background-color: black;
+main nav a.active {
+  background-color: #000;
   color: #fff;
 }
 main section {
   padding-top: 45px;
 }
 /* 반응형 */
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 665px) {
   .header-center {
     justify-content: center;
   }
@@ -114,23 +101,69 @@ main section {
   .header-center button {
     border: 1px solid #ddd;
     border-left: none;
-    padding: 6px;
+    padding: 6px 12px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 880px) {
   main aside {
     display: block;
-    background-color: white;
   }
   main .main-content {
     padding-left: 55px;
   }
 }
+
 @media screen and (min-width: 1000px) {
-  .headr-center input {
+  .header-center input {
     width: 90%;
   }
+}
+
+/* section - video */
+.video-card {
+  width: 350px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.video-card:hover .video-main video {
+  display: block;
+}
+.video-card:hover .video-main img {
+  display: none;
+}
+
+.video-main {
+  position: relative;
+}
+.video-main video,
+.video-main img {
+  width: 100%;
+  position: absolute;
+}
+.video-main img {
+  border-radius: 10px;
+}
+.video-main video {
+  display: none;
+}
+.video-info {
+  padding-top: 200px;
+  display: flex;
+  line-height: 1.2;
+}
+.video-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.video-info h2 {
+  font-weight: bold;
+}
+.video-info p {
+  font-size: 0.9rem;
+  color: #555;
 }
