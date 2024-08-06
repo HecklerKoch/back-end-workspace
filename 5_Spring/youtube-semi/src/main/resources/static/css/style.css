@@ -123,10 +123,15 @@ main section {
 }
 
 /* section - video */
+section {
+	display: flex;
+}
+
 .video-card {
   width: 350px;
   border-radius: 10px;
   cursor: pointer;
+  margin: 5px;
 }
 .video-card:hover .video-main video {
   display: block;

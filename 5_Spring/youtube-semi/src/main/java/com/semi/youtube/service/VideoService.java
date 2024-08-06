@@ -1,3 +1,4 @@
+
 package com.semi.youtube.service;
 
 import java.util.List;
@@ -11,11 +12,16 @@ import mapper.VideoMapper;
 
 @Service
 public class VideoService {
-	
+
 	@Autowired
 	private VideoMapper video;
 	
 	public List<Video> allVideo() {
 		return video.allVideo();
 	}
+	
+	public Video detail(int videoCode) {
+		return video.detail(videoCode);
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.semi.youtube.model.vo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -13,8 +14,8 @@ public class Video {
 	private String videoImg;
 	private String videoTitle;
 	private int videoCount;
-	private Date videoDate;
+	private LocalDateTime videoDate;
 	private String videoDesc;
-//	private int ChannelCode; // channel
+	//private int channelCode; // channel
 	private Channel channel;
 }
