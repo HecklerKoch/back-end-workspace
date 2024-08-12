@@ -1,13 +1,14 @@
 main.detail {
 	padding-top: 80px;
-	marging:0 60px;
+	margin: 0 60px;
 }
 .video-detail {
-	width: 70%
+	width: 70%;
+	margin-right: 20px;
 }
 .video-detail video {
-	width:100%;
-	margin-right: 20px;
+	width: 100%;
+	border-radius: 10px;
 }
 .video-detail h2 {
 	font-weight: bold;
@@ -20,7 +21,7 @@ main.detail {
 	justify-content: space-between;
 	align-items: center;
 }
-.video-desc-left {
+.detail-desc-left {
 	display: flex;
 	align-items: center;
 }
@@ -42,7 +43,7 @@ main.detail {
 	color: white;
 	border-radius: 20px;
 	border: none;
-	cursor:pointer;
+	cursor: pointer;
 	padding: 8px 15px;
 	margin-left: 20px;
 }

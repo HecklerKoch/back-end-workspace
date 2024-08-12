@@ -1,5 +1,21 @@
 package com.semi.youtube.service;
 
-public class MemberService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.semi.youtube.model.vo.Member;
+
+import mapper.MemberMapper;
+
+@Service
+public class MemberService {
+	
+	@Autowired
+	private MemberMapper member;
+	
+	public boolean check(String id) {
+		Member vo = member.check(id);
+		System.out.println(vo);
+		return false;
+	}
 }

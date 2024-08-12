@@ -5,6 +5,7 @@ header {
   display: flex;
   justify-content: space-between;
   height: 60px;
+  z-index: 1;
 }
 .header-start {
   display: flex;
@@ -70,6 +71,7 @@ main nav {
   padding-left: 15px;
   align-items: center;
   background: white;
+  z-index: 1;
 }
 main nav a {
   background-color: #eee;
@@ -126,7 +128,6 @@ main section {
 section {
 	display: flex;
 }
-
 .video-card {
   width: 350px;
   border-radius: 10px;

@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="detail" parameterType="integer" resultMap="videoMap">
-	SELET * FROM video
+	SELECT * FROM video
 	JOIN channel USING (channel_code)
 	WHERE video_code = #{videoCode}
 	</select>
