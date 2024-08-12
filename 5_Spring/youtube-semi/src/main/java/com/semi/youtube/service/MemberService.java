@@ -1,3 +1,4 @@
+
 package com.semi.youtube.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,17 @@ import mapper.MemberMapper;
 
 @Service
 public class MemberService {
-	
+
 	@Autowired
 	private MemberMapper member;
 	
 	public boolean check(String id) {
 		Member vo = member.check(id);
-		System.out.println(vo);
+		if(vo!=null) return true;
 		return false;
+	}
+	
+	public Member login(Member vo) {
+		return member.login(vo);
 	}
 }
