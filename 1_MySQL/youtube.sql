@@ -10,8 +10,8 @@ DROP TABLE member;
 CREATE TABLE member(
 	id VARCHAR(20) PRIMARY KEY,
     password VARCHAR(20),
-    email VARCHAR(50),
-    phone VARCHAR(13)
+    name VarChAR(20),
+    role VARCHAR(20)
 );
 
 -- 채널
