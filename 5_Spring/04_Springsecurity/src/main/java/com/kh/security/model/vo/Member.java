@@ -1,6 +1,7 @@
 package com.kh.security.model.vo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,9 +13,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// Spring Security에서 제공하는 UserDetails 인터페이스 상속
+
 @Data @NoArgsConstructor @AllArgsConstructor
 @Builder
-public class Member {
+public class Member Implement UserDetail{
 
 	private String id;
 	private String password;
@@ -25,6 +28,10 @@ public class Member {
 
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities() {
-	ArrayList<GranteAuthority> authlist = new ArrayList<>();
-	authlist.add(new SimpleGrantedAuthority(role));
+		return Collections.emptyList();
+}
+
+@Override
+public String getUsername() {
+	return id;
 }
