@@ -41,6 +41,19 @@
 		 	</tr>
 		 </c:forEach>
 		</tbody>
+		<ul class="pagination">
+			<li class="pagination">
+				<a class="page-link" href="/list?page=${paging.startpage - 1}">Previous</a>
+			</li>
+			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="page">
+			<li class="page-item">
+			  <a class="page-link" ${paging.page == page ? 'active' : ''} href="/list?page=${page}">${page}</a>
+			  </li>
+			  </c:forEach>
+			  <li class="page-item" ${paging.next ? '' : 'disable'}>
+			  	<a class="page-link" href="/list?page=${paging.startpage + 1}">Next</a>
+			  </li>
+		</ul>
 	</div>
 </body>
 </html>
