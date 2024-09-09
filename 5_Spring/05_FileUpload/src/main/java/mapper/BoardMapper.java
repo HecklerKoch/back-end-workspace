@@ -10,10 +10,10 @@ import com.kh.upload.model.vo.Paging;
 @Mapper
 public interface BoardMapper {
 	
-	void insert(Board vo);
-	List<Board> selectAll(Paging paging);
-	int total();
-	Board select(int no);
-	void update(Board vo);
-	void delete(int no);
+	public void insert(Board vo);
+	public List<Board> selectAll(Paging paging);
+	public int total();
+	public Board select(int no);
+	public void update(Board vo);
+	public void delete(int no);
 }
