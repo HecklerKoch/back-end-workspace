@@ -9,28 +9,32 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.upload.model.dto.BoardDTO;
 import com.kh.upload.model.vo.Board;
 import com.kh.upload.model.vo.Paging;
 import com.kh.upload.service.BoardService;
 
 @Controller
+@RequestMapping("/api/*")
 public class BoardController {
 
 	private String path = "\\\\192.168.10.51\\upload\\";
 
 	@Autowired
 	private BoardService service;
-
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
 
 	public String fileUpload(MultipartFile file) throws IllegalStateException, IOException {
 		// 중복 방지를 위한 UUID 적용
@@ -41,31 +45,19 @@ public class BoardController {
 		file.transferTo(copyFile); // 업로드한 파일이 지정한 path 위치로 저장
 		return fileName;
 	}
-
-	@PostMapping("/upload")
-	public String upload(MultipartFile file) throws IllegalStateException, IOException {
-		System.out.println("upload!");
-		System.out.println("파일 이름 : " + file.getOriginalFilename());
-		System.out.println("파일 사이즈 : " + file.getSize());
-		System.out.println("파일 파라미터명 : " + file.getName());
-
-		fileUpload(file);
-
-		return "redirect:/";
+	
+	@PostMapping("/board")
+	public ResponseEntity write(Board vo) throws IllegalStateException, IOException {
+		// 1. 파일 업로드 처리
+		String url = fileUpload(vo.getFile());
+		vo.setUrl(url);
+		// 2. 해당 파일 URL과 함께 title, content DB에 저장
+		service.insert(vo);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@PostMapping("/multiUpload")
-	public String multiUpload(List<MultipartFile> files) throws IllegalStateException, IOException {
-
-		for (MultipartFile file : files) {
-			fileUpload(file);
-		}
-
-		return "redirect:/";
-	}
-
-	@GetMapping("/list")
-	public String list(Model model, Paging paging) {
+	@GetMapping("/board")
+	public ResponseEntity list(Model model, Paging paging) {
 
 		List<Board> list = service.selectAll(paging);
 
@@ -75,41 +67,22 @@ public class BoardController {
 			b.setFormatDate(formatDate);
 		}
 
-		model.addAttribute("list", list);
-		model.addAttribute("paging", new Paging(paging.getPage(), service.total()));
-
-		return "list";
+		return ResponseEntity.status(HttpStatus.OK).body(new BoardDTO(list, new Paging(paging.getPage(), service.total())));
 	}
+	
 
-	@GetMapping("/write")
-	public String write() {
-		return "write";
+	// Read - Get : 1개 가져오기
+	@GetMapping("/board/{no}")
+	public ResponseEntity view(@PathVariable int no) {
+		Board board = service.select(no);
+		if(board!=null ) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.select(no));
 	}
-
-	@PostMapping("/write")
-	public String write(Board vo) throws IllegalStateException, IOException {
-		// 1. 파일 업로드 처리
-		String url = fileUpload(vo.getFile());
-		vo.setUrl(url);
-
-		// 2. 해당 파일 URL과 함께 title, content DB에 저장
-		service.insert(vo);
-
-		System.out.println(vo);
-
-		return "redirect:/view?no=" + vo.getNo();
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
-
-	@GetMapping("/view")
-	public String view(int no, Model model) {
-		model.addAttribute("board", service.select(no));
-		return "view";
-	}
-
-	@PostMapping("/update")
-	public String update(Board vo) throws IllegalStateException, IOException {
-		System.out.println(vo);
-		System.out.println(vo.getFile().isEmpty());
+	//Update - Put
+	@PutMapping("/board")
+	public ResponseEntity update(Board vo) throws IllegalStateException, IOException {
 		
 		if (!vo.getFile().isEmpty()) {
 			// 파일이 비어있지 않다면 기존 이미지 삭제(delete)
@@ -125,11 +98,12 @@ public class BoardController {
 
 		service.update(vo);
 
-		return "redirect:/list";
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
-	@GetMapping("/delete")
-	public String delete(int no) {
+	// Delete - Delete
+	@DeleteMapping("/board/{no}")
+	public ResponseEntity delete(@PathVariable int no) {
 		
 		// 업로드한 파일 삭제 (필요한 건 URL)
 		Board board = service.select(no);
@@ -138,7 +112,7 @@ public class BoardController {
 			file.delete();
 		}
 		service.delete(no);
-		return "redirect:/list";
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
